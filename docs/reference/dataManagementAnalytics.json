@@ -145,7 +145,7 @@
             "value": ""
           },
           "firewallTier": {
-            "value": "Premium"
+            "value": "Basic"
           },
           "privateDnsZoneIdBlob": {
             "value": ""

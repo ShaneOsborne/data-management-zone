@@ -21,7 +21,7 @@ param enableDnsAndFirewallDeployment bool = true
   'Standard'
   'Premium'
 ])
-param firewallTier string = 'Premium'
+param firewallTier string = 'Basic'
 param firewallPolicyId string = ''
 
 // Variables
@@ -296,7 +296,7 @@ resource firewall 'Microsoft.Network/azureFirewalls@2020-11-01' = if(enableDnsAn
   properties: {
     sku: {
       name: 'AZFW_VNet'
-      tier: contains(firewallPremiumRegions, location) ? firewallTier : 'Standard'
+      tier: contains(firewallPremiumRegions, location) ? firewallTier : firewallTier //'Standard'
     }
     ipConfigurations: [
       {

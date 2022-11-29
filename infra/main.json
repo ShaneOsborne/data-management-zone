@@ -100,6 +100,7 @@
         "description": "Specifies the tier of the Azure Firewall.  Optional if `enableDnsAndFirewallDeployment` is set to `false`."
       },
       "allowedValues": [
+        "Basic",
         "Standard",
         "Premium"
       ]
@@ -331,6 +332,7 @@
               "type": "string",
               "defaultValue": "Premium",
               "allowedValues": [
+                "Basic",
                 "Standard",
                 "Premium"
               ]
@@ -595,7 +597,7 @@
               "properties": {
                 "sku": {
                   "name": "AZFW_VNet",
-                  "tier": "[if(contains(variables('firewallPremiumRegions'), parameters('location')), parameters('firewallTier'), 'Standard')]"
+                  "tier": "[if(contains(variables('firewallPremiumRegions'), parameters('location')), parameters('firewallTier'), parameters('firewallTier')]"
                 },
                 "ipConfigurations": [
                   {

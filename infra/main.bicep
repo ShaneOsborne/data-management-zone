@@ -44,7 +44,7 @@ param dnsServerAdresses array = [
   'Premium'
 ])
 @description('Specifies the tier of the Azure Firewall.  Optional if `enableDnsAndFirewallDeployment` is set to `false`.')
-param firewallTier string = 'Premium'
+param firewallTier string = 'Basic' //Premium
 @description('Specifies the resource ID of the Azure Firewall Policy. Optional parameter allows you to deploy Firewall rules to an existing Firewall Policy if `enableDnsAndFirewallDeployment` is set to `false`.')
 param firewallPolicyId string = ''
 

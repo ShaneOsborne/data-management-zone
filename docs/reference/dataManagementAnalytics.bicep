@@ -95,7 +95,7 @@ resource dataManagementZoneDeployment 'Microsoft.Resources/deployments@2021-04-0
         value: ''
       }
       firewallTier: {
-        value: 'Premium'
+        value: 'Basic' //Premium
       }
       privateDnsZoneIdBlob: {
         value: ''

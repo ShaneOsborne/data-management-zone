@@ -597,7 +597,7 @@
               "properties": {
                 "sku": {
                   "name": "AZFW_VNet",
-                  "tier": "[if(contains(variables('firewallPremiumRegions'), parameters('location')), parameters('firewallTier'), parameters('firewallTier')]"
+                  "tier": "[if(contains(variables('firewallPremiumRegions'), parameters('location')), parameters('firewallTier'), 'Standard')]"
                 },
                 "ipConfigurations": [
                   {

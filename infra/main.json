@@ -77,6 +77,13 @@
         "description": "Specifies the address space of the subnet that is used for the services."
       }
     },
+    "firewallMgmtSubnetAddressPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.2.0/24",
+      "metadata": {
+        "description": "Specifies the address space of the subnet that is used for the firewall management."
+      }
+    },
     "firewallPrivateIp": {
       "type": "string",
       "defaultValue": "10.0.0.4",
@@ -266,6 +273,9 @@
           "servicesSubnetAddressPrefix": {
             "value": "[parameters('servicesSubnetAddressPrefix')]"
           },
+          "firewallMgmtSubnetAddressPrefix": {
+            "value": "[parameters('firewallMgmtSubnetAddressPrefix')]"
+          },
           "dnsServerAdresses": {
             "value": "[parameters('dnsServerAdresses')]"
           },
@@ -344,6 +354,7 @@
           },
           "variables": {
             "azureFirewallSubnetName": "AzureFirewallSubnet",
+            "azureFirewallMgmtSubnetName": "AzureFirewallManagementSubnet",
             "servicesSubnetName": "ServicesSubnet",
             "firewallPolicySubscriptionId": "[if(greaterOrEquals(length(split(parameters('firewallPolicyId'), '/')), 9), split(parameters('firewallPolicyId'), '/')[2], subscription().subscriptionId)]",
             "firewallPolicyResourceGroupName": "[if(greaterOrEquals(length(split(parameters('firewallPolicyId'), '/')), 9), split(parameters('firewallPolicyId'), '/')[4], resourceGroup().name)]",
@@ -475,7 +486,8 @@
               }
             ],
             "azureFirewallSubnet": "[if(parameters('enableDnsAndFirewallDeployment'), createArray(createObject('name', variables('azureFirewallSubnetName'), 'properties', createObject('addressPrefix', parameters('azureFirewallSubnetAddressPrefix'), 'addressPrefixes', createArray(), 'delegations', createArray(), 'privateEndpointNetworkPolicies', 'Enabled', 'privateLinkServiceNetworkPolicies', 'Enabled', 'serviceEndpointPolicies', createArray(), 'serviceEndpoints', createArray()))), createArray())]",
-            "subnets": "[concat(variables('azureFirewallSubnet'), variables('generalSubnets'))]"
+            "azureFirewallMgmtSubnet": "[if(parameters('enableDnsAndFirewallDeployment'), createArray(createObject('name', variables('azureFirewallMgmtSubnetName'), 'properties', createObject('addressPrefix', parameters('firewallMgmtSubnetAddressPrefix'), 'addressPrefixes', createArray(), 'delegations', createArray(), 'privateEndpointNetworkPolicies', 'Enabled', 'privateLinkServiceNetworkPolicies', 'Enabled', 'serviceEndpointPolicies', createArray(), 'serviceEndpoints', createArray()))), createArray())]",
+            "subnets": "[concat(variables('azureFirewallSubnet'), variables('azureFirewallMgmtSubnet'), variables('generalSubnets'))]"
           },
           "resources": [
             {

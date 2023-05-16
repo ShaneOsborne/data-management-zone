@@ -579,6 +579,31 @@
             },
             {
               "condition": "[parameters('enableDnsAndFirewallDeployment')]",
+              "type": "Microsoft.Network/publicIPAddresses",
+              "apiVersion": "2020-11-01",
+              "name": "[format('{0}-publicip002', parameters('prefix'))]",
+              "location": "[parameters('location')]",
+              "tags": "[parameters('tags')]",
+              "sku": {
+                "name": "Standard",
+                "tier": "Regional"
+              },
+              "properties": {
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Static",
+                "dnsSettings": {
+                  "domainNameLabel": "[format('{0}-publicip002', parameters('prefix'))]"
+                },
+                "publicIPPrefix": {
+                  "id": "[resourceId('Microsoft.Network/publicIPPrefixes', format('{0}-publicipprefix-2', parameters('prefix')))]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPPrefixes', format('{0}-publicipprefix-2', parameters('prefix')))]"
+              ]
+            },
+            {
+              "condition": "[parameters('enableDnsAndFirewallDeployment')]",
               "type": "Microsoft.Network/firewallPolicies",
               "apiVersion": "2021-05-01",
               "name": "[format('{0}-firewallpolicy', parameters('prefix'))]",
@@ -616,7 +641,7 @@
                   "name": "mngIpConfig001",
                   "properties": [{
                     "publicIPAddress": [{
-                      "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicip001', parameters('prefix')))]"
+                      "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicip002', parameters('prefix')))]"
                     }],
                     "subnet": [{                
                       "id": "[reference(resourceId('Microsoft.Network/virtualNetworks', format('{0}-vnet', parameters('prefix')))).subnets[0].id]"
@@ -631,6 +656,7 @@
                 "[resourceId('Microsoft.Network/firewallPolicies', format('{0}-firewallpolicy', parameters('prefix')))]",
                 "[resourceId('Microsoft.Resources/deployments', format('{0}-firewallpolicy-rules', parameters('prefix')))]",
                 "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicip001', parameters('prefix')))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicip002', parameters('prefix')))]",
                 "[resourceId('Microsoft.Network/virtualNetworks', format('{0}-vnet', parameters('prefix')))]"
               ]
             },

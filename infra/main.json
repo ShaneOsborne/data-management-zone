@@ -612,6 +612,17 @@
                     }
                   }
                 ],
+                "managementIpConfiguration": [{
+                  "name": "mngIpConfig001",
+                  "properties": [{
+                    "publicIPAddress": [{
+                      "id": "[resourceId('Microsoft.Network/publicIPAddresses', format('{0}-publicip001', parameters('prefix')))]"
+                    }],
+                    "subnet": [{                
+                      "id": "[reference(resourceId('Microsoft.Network/virtualNetworks', format('{0}-vnet', parameters('prefix')))).subnets[0].id]"
+                    }]
+                  }]
+                }],
                 "firewallPolicy": {
                   "id": "[resourceId('Microsoft.Network/firewallPolicies', format('{0}-firewallpolicy', parameters('prefix')))]"
                 }

@@ -595,11 +595,11 @@
                   "domainNameLabel": "[format('{0}-publicip002', parameters('prefix'))]"
                 },
                 "publicIPPrefix": {
-                  "id": "[resourceId('Microsoft.Network/publicIPPrefixes', format('{0}-publicipprefix-2', parameters('prefix')))]"
+                  "id": "[resourceId('Microsoft.Network/publicIPPrefixes', format('{0}-publicipprefix', parameters('prefix')))]"
                 }
               },
               "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPPrefixes', format('{0}-publicipprefix-2', parameters('prefix')))]"
+                "[resourceId('Microsoft.Network/publicIPPrefixes', format('{0}-publicipprefix', parameters('prefix')))]"
               ]
             },
             {

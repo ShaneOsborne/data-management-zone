@@ -77,6 +77,9 @@ resource dataManagementZoneDeployment 'Microsoft.Resources/deployments@2021-04-0
       azureFirewallSubnetAddressPrefix: {
         value: '10.0.0.0/24'
       }
+      firewallMgmtSubnetAddressPrefix: {
+        value: '10.0.2.0/24'
+      }
       servicesSubnetAddressPrefix: {
         value: '10.0.1.0/24'
       }

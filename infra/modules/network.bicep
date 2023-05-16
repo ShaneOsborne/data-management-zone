@@ -16,16 +16,19 @@ param dnsServerAdresses array = [
 param vnetAddressPrefix string = '10.0.0.0/16'
 param azureFirewallSubnetAddressPrefix string = '10.0.0.0/24'
 param servicesSubnetAddressPrefix string = '10.0.1.0/24'
+param firewallMgmtSubnetAddressPrefix string = '10.0.2.0/24'
 param enableDnsAndFirewallDeployment bool = true
 @allowed([
   'Standard'
   'Premium'
+  'Basic'
 ])
 param firewallTier string = 'Basic'
 param firewallPolicyId string = ''
 
 // Variables
 var azureFirewallSubnetName = 'AzureFirewallSubnet'
+var azureFirewallMgmtSubnetName = 'AzureFirewallManagementSubnet'
 var servicesSubnetName = 'ServicesSubnet'
 var firewallPolicySubscriptionId = length(split(firewallPolicyId, '/')) >= 9 ? split(firewallPolicyId, '/')[2] : subscription().subscriptionId
 var firewallPolicyResourceGroupName = length(split(firewallPolicyId, '/')) >= 9 ? split(firewallPolicyId, '/')[4] : resourceGroup().name
@@ -174,7 +177,21 @@ var azureFirewallSubnet = enableDnsAndFirewallDeployment ? [
     }
   }
 ] : []
-var subnets = concat(azureFirewallSubnet, generalSubnets)
+var azureFirewallMgmtSubnet = enableDnsAndFirewallDeployment ? [
+  {
+    name: azureFirewallMgmtSubnetName
+    properties: {
+      addressPrefix: firewallMgmtSubnetAddressPrefix
+      addressPrefixes: []
+      delegations: []
+      privateEndpointNetworkPolicies: 'Enabled'
+      privateLinkServiceNetworkPolicies: 'Enabled'
+      serviceEndpointPolicies: []
+      serviceEndpoints: []
+    }
+  }
+] : []
+var subnets = concat(azureFirewallSubnet, azureFirewallMgmtSubnet, generalSubnets)
 
 // Resources
 resource routeTable 'Microsoft.Network/routeTables@2020-11-01' = {

@@ -130,6 +130,9 @@
           "servicesSubnetAddressPrefix": {
             "value": "10.0.1.0/24"
           },
+          "firewallMgmtSubnetAddressPrefix":{
+            "value": "10.0.2.0/24"
+          },
           "enableDnsAndFirewallDeployment": {
             "value": true
           },

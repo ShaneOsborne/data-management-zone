@@ -21,7 +21,7 @@ pr:
 
 variables:
   AZURE_RESOURCE_MANAGER_CONNECTION_NAME: "data-management-zone-service-connection" # Update to '{yourResourceManagerConnectionName}'
-  AZURE_SUBSCRIPTION_ID: "89c79b7f-f104-46c7-8a0a-2a9021ca1a16"                     # Update to '{yourDataManagementZoneSubscriptionId}'
+  AZURE_SUBSCRIPTION_ID: "273c2308-ac90-4352-ad85-15fedb1d4fb5"                     # Update to '{yourDataManagementZoneSubscriptionId}'
   AZURE_LOCATION: "uksouth"                                                         # Update to '{yourRegionName}'
 
 stages:
